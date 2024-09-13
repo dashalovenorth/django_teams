@@ -1,9 +1,10 @@
+from datetime import date
+
 from django.contrib.auth.models import User
 from django.test import TestCase
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient
-from datetime import date
 
 from app.models import Project, Team
 
@@ -102,8 +103,4 @@ ProjectApiTest = create_api_test(
     "/api/project/",
     {"name": "A", "date_start": date.today(), "status": "готов"},
 )
-TeamApiTest = create_api_test(
-    Team,
-    "/api/team/",
-    {"name": "Q"}
-)
+TeamApiTest = create_api_test(Team, "/api/team/", {"name": "Q"})

@@ -1,0 +1,7 @@
+[flake8]
+application-import-names = app,Bot
+exclude = .git,.github,pycache,*/migrations/,venv/,manage.py
+max-complexity = 10
+max-line-length = 99
+style = PEP8
+ignore = S106,RST210

@@ -1,10 +1,9 @@
-from django.db import models
-
 from datetime import datetime, timezone
 from uuid import uuid4
 
-from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from django.db import models
 
 
 class UUIDMixin(models.Model):
@@ -37,18 +36,20 @@ class CreatedMixin(models.Model):
     class Meta:
         abstract = True
 
+
 class Status(models.TextChoices):
-    READY = 'готов', 'Готов'
-    IN_DEVELOPMENT = 'в разработке', 'В разработке'
+    READY = "готов", "Готов"
+    IN_DEVELOPMENT = "в разработке", "В разработке"
+
 
 class Project(UUIDMixin):
     name = models.TextField("name", null=False, blank=False)
-    date_start = models.DateField('date_start', null=False, blank=False)
+    date_start = models.DateField("date_start", null=False, blank=False)
     status = models.CharField(
         max_length=20,
         choices=Status.choices,
         default=Status.IN_DEVELOPMENT,
-        verbose_name='Статус'
+        verbose_name="Статус",
     )
 
     class Meta:
@@ -57,14 +58,14 @@ class Project(UUIDMixin):
         verbose_name_plural = "projects"
 
     def __str__(self) -> str:
-        return f'Project {self.name} with start data: {self.date_start}'
+        return f"Project {self.name} with start data: {self.date_start}"
 
 
 class Developer(UUIDMixin, CreatedMixin):
     name = models.TextField("name", null=False, blank=False)
     surname = models.TextField("surname", null=False, blank=False)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    position = models.TextField('position', null=False, blank=False)
+    position = models.TextField("position", null=False, blank=False)
 
     class Meta:
         db_table = '"django_hw"."developer"'
@@ -90,4 +91,4 @@ class Team(UUIDMixin, CreatedMixin):
         verbose_name_plural = "teams"
 
     def __str__(self) -> str:
-        return f'In team {self.name} developers: {self.developers}'
+        return f"In team {self.name} developers: {self.developers}"

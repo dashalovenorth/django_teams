@@ -1,13 +1,13 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from app.models import Project, Developer, Team
+from app.models import Developer, Project, Team
 
 
 class DeveloperSerializer(serializers.ModelSerializer):
     class Meta:
         model = Developer
-        fields = "id", "name", 'surname', 'position'
+        fields = "id", "name", "surname", "position"
 
     def create(self, validated_data):
         user = User.objects.create(username=validated_data["name"])
@@ -21,7 +21,7 @@ class TeamSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Team
-        fields = 'name', 'developers'
+        fields = "name", "developers"
 
     def create(self, validated_data):
         developer = self.context["request"].data.get("developer")

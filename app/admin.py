@@ -8,9 +8,7 @@ class TeamAdmin(admin.ModelAdmin):
     class Meta:
         model = Team
 
-    list_display = (
-        "name",
-    )
+    list_display = ("name",)
 
 
 @admin.register(Developer)
