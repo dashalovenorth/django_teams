@@ -1,0 +1,36 @@
+name: Django Test
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  linter:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Flake8
+      run: | 
+        python3 -m pip install flake8
+        flake8 . 
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+      
+
+    - name: Install Compose
+      uses: ndeloof/install-compose-action@v0.0.1
+      with:
+        legacy: false
+    - run: docker compose -f docker-compose.tests.yml up --exit-code-from test-django
