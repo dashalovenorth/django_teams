@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создание команды</title>
+</head>
+<body>
+    <header>
+        <h1>Создание команды</h1>
+    </header>
+
+    <main>
+      <a href="/">На главную</a>
+        <form method="post">
+            {% csrf_token %}
+            <div>
+                <label for="id_name">Название команды:</label>
+                {{ form.name }}
+            </div>
+            <div>
+                <label>Разработчики:</label>
+                <div>
+                    {{ form.developers }}
+                </div>
+            </div>
+            <button type="submit">Сохранить</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Ваш сайт</p>
+    </footer>
+</body>
+</html>
+

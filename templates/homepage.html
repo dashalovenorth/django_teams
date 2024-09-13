@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Домашняя страница</title>
+</head>
+<body>
+    <header>
+        <h1>Добро пожаловать на домашнюю страницу</h1>
+        {% if user.is_authenticated %}
+            <p>Привет, {{ user.username }}!</p>
+
+            <form method="post" action="/logout/">
+              {% csrf_token %}
+            <button type="submit">Выйти</button>
+        </form>
+        {% else %}
+            <p>Пожалуйста, войдите в систему.</p>
+            <a href="/login">Войти</a>
+        {% endif %}
+    </header>
+
+    <main>
+        <a href="/teams/create">Создать команду</a>
+        <br/>
+        <a href="/projects/create">Создать проект</a>
+        <section>
+            <h2>Список команд</h2>
+            <ul>
+                {% for team in teams %}
+                    <li>
+                        <strong>{{ team.name }}</strong>
+                        <h3>Проекты:</h3>
+                        <ul>
+                            {% for project in team.projects.all %}
+                                <li>{{ project.name }}</li>
+                            {% empty %}
+                                <li>Проекты отсутствуют.</li>
+                            {% endfor %}
+                        </ul>
+                        <h3>Разработчики:</h3>
+                        <ul>
+                            {% for developer in team.developers.all %}
+                                <li>{{ developer.name }}</li>
+                            {% empty %}
+                                <li>Разработчики отсутствуют.</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% empty %}
+                    <li>Команды отсутствуют.</li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 GitGit</p>
+    </footer>
+</body>
+</html>
+

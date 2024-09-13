@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создание проекта</title>
+</head>
+<body>
+    <header>
+        <h1>Создание проекта</h1>
+    </header>
+
+    <main>
+        <form method="post">
+            {% csrf_token %}
+            <div>
+                <label for="id_name">Название проекта:</label>
+                {{ form.name }}
+            </div>
+            <div>
+                <label for="id_date_start">Дата начала:</label>
+                {{ form.date_start }}
+            </div>
+            <div>
+                <label>Статус:</label>
+                {{ form.status }}
+            </div>
+            <div>
+                <label>Команды:</label>
+                <ul>
+                    {% for team in teams %}
+                        <li>
+                            <input type="checkbox" name="teams" value="{{ team.id }}"> {{ team.name }}
+                        </li>
+                    {% empty %}
+                        <li>Нет доступных команд.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <button type="submit">Создать проект</button>
+        </form>
+
+        <p>
+            <a href="/">Назад на главную</a>
+        </p>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 GitGit</p>
+    </footer>
+</body>
+</html>
+

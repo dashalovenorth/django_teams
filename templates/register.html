@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+</head>
+<body>
+    <header>
+        <h1>Регистрация</h1>
+    </header>
+
+    <main>
+        <form method="post">
+            {% csrf_token %}
+            <div>
+                <label for="id_username">Имя пользователя:</label>
+                <input type="text" name="username" id="id_username" required>
+            </div>
+            <div>
+                <label for="id_password">Пароль:</label>
+                <input type="password" name="password" id="id_password" required>
+            </div>
+            <div>
+                <label for="id_name">Имя разработчика:</label>
+                <input type="text" name="name" id="id_name" required>
+            </div>
+            <div>
+                <label for="id_surname">Фамилия разработчика:</label>
+                <input type="text" name="surname" id="id_surname" required>
+            </div>
+            <button type="submit">Зарегистрироваться</button>
+        </form>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2024 GitGit</p>
+    </footer>
+</body>
+</html>
+

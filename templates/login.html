@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход на сайт</title>
+</head>
+<body>
+    <header>
+        <h1>Вход на сайт</h1>
+    </header>
+
+    <main>
+  <div class="px-4 py-5 my-5 text-center feedback">
+    <form action="" method="post">
+      {% csrf_token %}
+      {% if form.errors %}<div>Проверьте введённые данные!</div>{% endif %}
+      {% for field in form %}
+        <div>
+          {{ field.label_tag }} {{ field }}
+          {% if field.help_text %}<p>{{ field.help_text | safe }}</p>{% endif %}
+        </div>
+      {% endfor %}
+      <button id="btn-login" class="btn btn-primary" type="submit">
+        {% block view-text %}
+          Войти
+        {% endblock view-text %}
+      </button>
+    </form>
+  </div>
+        <p>
+            <a href="/register">Зарегистрироваться</a>
+        </p>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 GitGit</p>
+    </footer>
+</body>
+</html>
+

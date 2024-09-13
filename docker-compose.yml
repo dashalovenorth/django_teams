@@ -1,0 +1,40 @@
+services:
+  postgres:
+    image: 'postgres:15.5'
+    env_file: .env
+    ports:
+      - ${POSTGRES_PORT}:5432
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "${POSTGRES_USER}", "-d", "${POSTGRES_DB}" ]
+      interval: 1s
+      timeout: 1s
+      retries: 60
+    restart: always
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+  django:
+    restart: always
+    build: .
+    command: sh -c "
+      python manage.py migrate
+      && python manage.py loaddata fixture.json
+      && ./entrypoint.sh"
+    env_file: ./.env
+    ports:
+      - "8000:8000"
+    stop_signal: SIGINT
+    volumes:
+      - ./:/app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      driver: default
